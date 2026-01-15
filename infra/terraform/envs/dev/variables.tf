@@ -1,7 +1,7 @@
 
 variable "location" {
   type    = string
-  default = "southeastasia"
+  default = "eastasia"
 }
 
 variable "project" {
