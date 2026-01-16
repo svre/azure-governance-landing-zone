@@ -13,7 +13,7 @@ resource "azurerm_resource_group" "core" {
 }
 
 module "network_hub" {
-  source = "C:/Users/Administrator/azure-governance-landing-zone/infra/infra/terraform/modules/network_hub"
+  source = "C:/Users/Administrator/azure-governance-landing-zone/infra/terraform/modules/network_hub"
   location            = var.location
   resource_group_name = azurerm_resource_group.core.name
   tags                = local.tags
@@ -29,7 +29,7 @@ module "network_hub" {
 }
 
 module "spoke_prod" {
-  source = "C:/Users/Administrator/azure-governance-landing-zone/infra/infra/terraform/modules/network_spoke"
+  source = "C:/Users/Administrator/azure-governance-landing-zone/infra/terraform/modules/network_spoke"
   location            = var.location
   resource_group_name = azurerm_resource_group.core.name
   tags                = local.tags
@@ -47,7 +47,7 @@ module "spoke_prod" {
 }
 
 module "spoke_nonprod" {
-  source = "C:/Users/Administrator/azure-governance-landing-zone/infra/infra/terraform/modules/network_spoke"
+  source = "C:/Users/Administrator/azure-governance-landing-zone/infra/terraform/modules/network_spoke"
   location            = var.location
   resource_group_name = azurerm_resource_group.core.name
   tags                = local.tags

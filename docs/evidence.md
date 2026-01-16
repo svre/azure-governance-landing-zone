@@ -25,3 +25,4 @@
 - [x] Spoke peerings connected
   - Prod: docs/architecture/d2-spoke-prod-peerings.png
   - NonProd: docs/architecture/d2-spoke-nonprod-peerings.png
+✅ Day2 Hub peerings connected（docs/architecture/day2-peerings.png）
