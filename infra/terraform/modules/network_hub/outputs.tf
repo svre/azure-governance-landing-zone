@@ -8,9 +8,10 @@ output "hub_vnet_name" {
 
 output "subnet_ids" {
   value = {
-    firewall = azurerm_subnet.firewall.id
-    bastion  = azurerm_subnet.bastion.id
-    gateway  = azurerm_subnet.gateway.id
-    shared   = azurerm_subnet.shared.id
+    firewall      = azurerm_subnet.firewall.id
+    firewall_mgmt = azurerm_subnet.firewall_mgmt.id
+    bastion       = azurerm_subnet.bastion.id
+    gateway       = azurerm_subnet.gateway.id
+    shared        = azurerm_subnet.shared.id
   }
 }

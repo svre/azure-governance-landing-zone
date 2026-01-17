@@ -11,3 +11,4 @@ variable "subnet_gateway" { type = string }
 
 variable "subnet_shared_name" { type = string }
 variable "subnet_shared" { type = string }
+variable "subnet_firewall_mgmt" { type = string } # /26 for Basic mgmt subnet

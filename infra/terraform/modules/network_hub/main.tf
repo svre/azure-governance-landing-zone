@@ -33,3 +33,10 @@ resource "azurerm_subnet" "shared" {
   virtual_network_name = azurerm_virtual_network.hub.name
   address_prefixes     = [var.subnet_shared]
 }
+
+resource "azurerm_subnet" "firewall_mgmt" {
+  name                 = "AzureFirewallManagementSubnet"
+  resource_group_name  = var.resource_group_name
+  virtual_network_name = azurerm_virtual_network.hub.name
+  address_prefixes     = [var.subnet_firewall_mgmt]
+}

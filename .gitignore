@@ -40,3 +40,7 @@ terraform.rc
 tfplan
 tfplan.*
 tfplan*
+**/.terraform/*
+**/*.tfstate
+**/*.tfstate.*
+
