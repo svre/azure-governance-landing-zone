@@ -13,7 +13,7 @@ resource "azurerm_resource_group" "core" {
 }
 
 module "network_hub" {
-  source = "C:/Users/Administrator/azure-governance-landing-zone/infra/terraform/modules/network_hub"
+  source              = "C:/Users/Administrator/azure-governance-landing-zone/infra/terraform/modules/network_hub"
   location            = var.location
   resource_group_name = azurerm_resource_group.core.name
   tags                = local.tags
@@ -21,15 +21,16 @@ module "network_hub" {
   hub_vnet_name     = "vnet-${var.project}-hub"
   hub_address_space = "10.0.0.0/16"
 
-  subnet_firewall    = "10.0.0.0/26"
-  subnet_bastion     = "10.0.0.64/26"
-  subnet_gateway     = "10.0.1.0/27"
-  subnet_shared_name = "snet-hub-shared"
-  subnet_shared      = "10.0.2.0/24"
+  subnet_firewall_mgmt = "10.0.0.128/26"
+  subnet_firewall      = "10.0.0.0/26"
+  subnet_bastion       = "10.0.0.64/26"
+  subnet_gateway       = "10.0.1.0/27"
+  subnet_shared_name   = "snet-hub-shared"
+  subnet_shared        = "10.0.2.0/24"
 }
 
 module "spoke_prod" {
-  source = "C:/Users/Administrator/azure-governance-landing-zone/infra/terraform/modules/network_spoke"
+  source              = "C:/Users/Administrator/azure-governance-landing-zone/infra/terraform/modules/network_spoke"
   location            = var.location
   resource_group_name = azurerm_resource_group.core.name
   tags                = local.tags
@@ -47,7 +48,7 @@ module "spoke_prod" {
 }
 
 module "spoke_nonprod" {
-  source = "C:/Users/Administrator/azure-governance-landing-zone/infra/terraform/modules/network_spoke"
+  source              = "C:/Users/Administrator/azure-governance-landing-zone/infra/terraform/modules/network_spoke"
   location            = var.location
   resource_group_name = azurerm_resource_group.core.name
   tags                = local.tags
@@ -62,4 +63,40 @@ module "spoke_nonprod" {
   hub_vnet_id             = module.network_hub.hub_vnet_id
   hub_vnet_name           = module.network_hub.hub_vnet_name
   hub_resource_group_name = azurerm_resource_group.core.name
+}
+
+module "egress_firewall" {
+  source              = "C:/Users/Administrator/azure-governance-landing-zone/infra/terraform/modules/egress_firewall"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.core.name
+  tags                = local.tags
+
+  firewall_mgmt_subnet_id = module.network_hub.subnet_ids.firewall_mgmt
+  firewall_name           = "azfw-${var.project}-hub"
+  firewall_sku_tier       = "Basic"
+
+  firewall_subnet_id = module.network_hub.subnet_ids.firewall
+  spoke_cidrs        = ["10.1.0.0/16", "10.2.0.0/16"]
+}
+
+module "udr_spoke_prod" {
+  source              = "C:/Users/Administrator/azure-governance-landing-zone/infra/terraform/modules/spoke_udr"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.core.name
+  tags                = local.tags
+
+  route_table_name    = "rt-${var.project}-spoke-prod"
+  firewall_private_ip = module.egress_firewall.firewall_private_ip
+  subnet_ids          = [module.spoke_prod.subnet_app_id, module.spoke_prod.subnet_data_id]
+}
+
+module "udr_spoke_nonprod" {
+  source              = "C:/Users/Administrator/azure-governance-landing-zone/infra/terraform/modules/spoke_udr"
+  location            = var.location
+  resource_group_name = azurerm_resource_group.core.name
+  tags                = local.tags
+
+  route_table_name    = "rt-${var.project}-spoke-nonprod"
+  firewall_private_ip = module.egress_firewall.firewall_private_ip
+  subnet_ids          = [module.spoke_nonprod.subnet_app_id, module.spoke_nonprod.subnet_data_id]
 }
