@@ -1,7 +1,7 @@
 locals {
   tags = {
     CostCenter = "CC-001"
-    Owner      = "your-name"
+    Owner      = "sorenvale"
     Env        = "dev"
   }
 }
