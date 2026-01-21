@@ -12,3 +12,9 @@
 - Reserved AzureFirewallSubnet / AzureBastionSubnet / GatewaySubnet upfront to avoid future re-IPing.
 - Enabled bidirectional VNet peering with forwarded traffic to support centralized egress in Day3 (UDR + firewall/NVA).
 
+## D3 - Centralized egress (Azure Firewall + UDR) decisions
+- Chose Azure Firewall **Basic** for dev/demo to control cost; would use Standard/Premium in production depending on requirements.
+- Added **AzureFirewallManagementSubnet** + management public IP (required for Basic SKU) to avoid deployment failure.
+- Enforced spoke egress via UDR: default route `0.0.0.0/0` -> Virtual appliance -> Azure Firewall private IP.
+- Validation strategy: (1) Route table + subnet association screenshots, (2) VM Run Command `curl ifconfig.me` shows egress IP equals firewall public IP (SNAT), (3) Log Analytics query confirms AZFW logs (Network/DNS/Application).
+- Cost-control practice: destroy Day3 resources after evidence capture; keep code for re-deploy.
