@@ -17,3 +17,7 @@ output "firewall_public_ip" {
 output "firewall_private_ip" {
   value = module.egress_firewall.firewall_private_ip
 }
+
+output "firewall_public_ip_id" {
+  value = module.egress_firewall.firewall_public_ip_id
+}
