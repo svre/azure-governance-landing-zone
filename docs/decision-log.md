@@ -18,3 +18,13 @@
 - Enforced spoke egress via UDR: default route `0.0.0.0/0` -> Virtual appliance -> Azure Firewall private IP.
 - Validation strategy: (1) Route table + subnet association screenshots, (2) VM Run Command `curl ifconfig.me` shows egress IP equals firewall public IP (SNAT), (3) Log Analytics query confirms AZFW logs (Network/DNS/Application).
 - Cost-control practice: destroy Day3 resources after evidence capture; keep code for re-deploy.
+
+## D4 - Policy-as-Code (Azure Policy) decisions
+- Implemented governance guardrails as code using custom Policy Definitions + an Initiative (Policy Set) to keep rules version-controlled and reviewable.
+- Subscription scope: assigned a baseline Initiative to enforce:
+  - Allowed locations = eastasia (aligned with current subscription region availability)
+  - Mandatory tags (CostCenter, Owner) for resource groups and taggable resources
+- Resource group scope: assigned a scoped deny policy for Public IP to reduce attack surface in spokes.
+- Exception strategy: excluded the Azure Firewall Public IP via `not_scopes` to avoid blocking required hub egress components (temporary trade-off until RGs are separated into hub vs spoke scopes).
+- Enforcement choice: used `Deny` (not Audit) to produce deterministic, reproducible evidence for the portfolio (RequestDisallowedByPolicy).
+- Evidence strategy: validated guardrails via CLI negative tests (wrong region, missing tags, public IP creation) and captured Portal assignment screenshots.
