@@ -116,13 +116,13 @@ resource "azurerm_firewall" "fw" {
   resource_group_name = var.resource_group_name
 
   dynamic "management_ip_configuration" {
-  for_each = var.firewall_sku_tier == "Basic" ? [1] : []
-  content {
-    name                 = "mgmt"
-    subnet_id            = var.firewall_mgmt_subnet_id
-    public_ip_address_id = azurerm_public_ip.fw_mgmt_pip[0].id
+    for_each = var.firewall_sku_tier == "Basic" ? [1] : []
+    content {
+      name                 = "mgmt"
+      subnet_id            = var.firewall_mgmt_subnet_id
+      public_ip_address_id = azurerm_public_ip.fw_mgmt_pip[0].id
+    }
   }
-}
 
   sku_name = "AZFW_VNet"
   sku_tier = var.firewall_sku_tier

@@ -1,14 +1,14 @@
 # Evidence Index
 
+## Naming (recommended)
+- Format: `dayXX-<source>-<scope>-<what>-<result>.png`
+- Directory: `docs/architecture/`
+- Notes: Keep filenames stable once referenced here.
+
+---
+
 ## Architecture
 - [ ] Hub-Spoke diagram (draw.io) saved in `docs/architecture/` (TODO)
-
-## Policy Enforcement (Day4 TODO)
-- [ ] Screenshot/GIF: “Request Disallowed by Policy” when creating forbidden resource (TODO)
-
-## CI/CD (Day5 TODO)
-- [ ] Screenshot: GitHub Actions PR check running terraform fmt/validate/plan (TODO)
-- [ ] Screenshot: Failed pipeline when policy/security rule is violated (Checkov/tfsec) (TODO)
 
 ---
 
@@ -32,6 +32,7 @@
 ---
 
 ## Day3 - Centralized Egress via Azure Firewall + UDR ✅
+
 ### Core proof: default route enforced
 - [x] Route table (NonProd): `0.0.0.0/0 -> Virtual appliance -> 10.0.0.4`
   - `docs/architecture/day3-rt-nonprod-default-to-fw.png`
@@ -57,3 +58,25 @@
 ### Audit proof: Firewall logs captured in Log Analytics
 - [x] Log Analytics query results show AZFW logs (Network/DNS/Application)
   - `docs/architecture/day3-azfw-logs.png`
+
+---
+
+## Day4 - Policy-as-Code (Deny Proof) ✅
+
+### Assignment proof (Portal)
+- [x] Policy assignments visible (Baseline initiative at subscription + Deny Public IP scoped to RG)
+  - `docs/architecture/day04-portal-subscription-policy-assign-ok.png`
+
+### Deny proof (CLI)
+- [x] Deny non-allowed region (eastus)
+  - `docs/architecture/day04-cli-deny-location-eastus.png`
+- [x] Deny missing required tags (CostCenter/Owner) on resource group creation
+  - `docs/architecture/day04-cli-deny-tags-missing.png`
+- [x] Deny Public IP creation at RG scope (scoped assignment)
+  - `docs/architecture/day04-cli-deny-publicip-rg-core.png`
+
+---
+
+## Day5 - CI/CD (TODO - not done today)
+- [ ] Screenshot: GitHub Actions PR check running terraform fmt/validate/plan (TODO)
+- [ ] Screenshot: Failed pipeline when policy/security rule is violated (Checkov/tfsec) (TODO)
