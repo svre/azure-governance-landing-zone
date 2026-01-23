@@ -1,9 +1,8 @@
 
 locals {
-  subnet_map = can(tomap(var.subnet_ids))
-    ? tomap(var.subnet_ids)
-    : { for i, id in tolist(var.subnet_ids) : tostring(i) => id }
+  subnet_map = (can(tomap(var.subnet_ids)) ? tomap(var.subnet_ids) : { for i, id in tolist(var.subnet_ids) : tostring(i) => id })
 }
+
 
 resource "azurerm_route_table" "rt" {
   name                = var.route_table_name
