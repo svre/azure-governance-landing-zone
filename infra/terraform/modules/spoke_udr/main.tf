@@ -20,8 +20,12 @@ resource "azurerm_route" "default_to_fw" {
   next_hop_in_ip_address = var.firewall_private_ip
 }
 
+locals {
+  subnet_list = can(tolist(var.subnet_ids)) ? tolist(var.subnet_ids) : values(tomap(var.subnet_ids))
+}
+
 resource "azurerm_subnet_route_table_association" "assoc" {
-  for_each       = local.subnet_map
-  subnet_id      = each.value
+  count          = length(local.subnet_list)
+  subnet_id      = local.subnet_list[count.index]
   route_table_id = azurerm_route_table.rt.id
 }
