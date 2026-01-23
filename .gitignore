@@ -43,4 +43,8 @@ tfplan*
 **/.terraform/*
 **/*.tfstate
 **/*.tfstate.*
+# local logs
+checkov_baseline.log
+checkov_scan_results.log
+*.log
 

@@ -1,3 +1,10 @@
+
+locals {
+  subnet_map = can(tomap(var.subnet_ids))
+    ? tomap(var.subnet_ids)
+    : { for i, id in tolist(var.subnet_ids) : tostring(i) => id }
+}
+
 resource "azurerm_route_table" "rt" {
   name                = var.route_table_name
   location            = var.location
@@ -15,7 +22,7 @@ resource "azurerm_route" "default_to_fw" {
 }
 
 resource "azurerm_subnet_route_table_association" "assoc" {
-  for_each       = var.subnet_ids
+  for_each       = local.subnet_map
   subnet_id      = each.value
   route_table_id = azurerm_route_table.rt.id
 }
