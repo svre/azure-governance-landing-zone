@@ -15,7 +15,7 @@ resource "azurerm_route" "default_to_fw" {
 }
 
 resource "azurerm_subnet_route_table_association" "assoc" {
-  for_each       = toset(var.subnet_ids)
+  for_each       = var.subnet_ids
   subnet_id      = each.value
   route_table_id = azurerm_route_table.rt.id
 }

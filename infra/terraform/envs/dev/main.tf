@@ -87,7 +87,11 @@ module "udr_spoke_prod" {
 
   route_table_name    = "rt-${var.project}-spoke-prod"
   firewall_private_ip = module.egress_firewall.firewall_private_ip
-  subnet_ids          = [module.spoke_prod.subnet_app_id, module.spoke_prod.subnet_data_id]
+  subnet_ids = {
+    app  = module.spoke_prod.subnet_app_id
+    data = module.spoke_prod.subnet_data_id
+  }
+
 }
 
 module "udr_spoke_nonprod" {
@@ -98,5 +102,9 @@ module "udr_spoke_nonprod" {
 
   route_table_name    = "rt-${var.project}-spoke-nonprod"
   firewall_private_ip = module.egress_firewall.firewall_private_ip
-  subnet_ids          = [module.spoke_nonprod.subnet_app_id, module.spoke_nonprod.subnet_data_id]
+  subnet_ids = {
+    app  = module.spoke_nonprod.subnet_app_id
+    data = module.spoke_nonprod.subnet_data_id
+  }
+
 }
