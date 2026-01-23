@@ -17,14 +17,14 @@ resource "azurerm_policy_definition" "deny_non_allowed_locations" {
   })
 
   policy_rule = jsonencode({
-    if = {
-      allOf = [
-        { field = "location", exists = "true" },
-        { field = "location", notEquals = "global" },
-        { field = "location", notIn = "[parameters('allowedLocations')]" }
+    "if" = {
+      "allOf" = [
+        { "field" = "location", "exists" = "true" },
+        { "field" = "location", "notEquals" = "global" },
+        { "field" = "location", "notIn" = "[parameters('allowedLocations')]" }
       ]
     }
-    then = { effect = "Deny" }
+    "then" = { "effect" = "Deny" }
   })
 }
 
@@ -36,13 +36,13 @@ resource "azurerm_policy_definition" "deny_rg_missing_costcenter" {
   display_name = "Deny resource groups without CostCenter tag"
 
   policy_rule = jsonencode({
-    if = {
-      allOf = [
-        { field = "type", equals = "Microsoft.Resources/subscriptions/resourceGroups" },
-        { field = "tags['CostCenter']", exists = "false" }
+    "if" = {
+      "allOf" = [
+        { "field" = "type", "equals" = "Microsoft.Resources/subscriptions/resourceGroups" },
+        { "field" = "tags['CostCenter']", "exists" = "false" }
       ]
     }
-    then = { effect = "Deny" }
+    "then" = { "effect" = "Deny" }
   })
 }
 
@@ -53,13 +53,13 @@ resource "azurerm_policy_definition" "deny_rg_missing_owner" {
   display_name = "Deny resource groups without Owner tag"
 
   policy_rule = jsonencode({
-    if = {
-      allOf = [
-        { field = "type", equals = "Microsoft.Resources/subscriptions/resourceGroups" },
-        { field = "tags['Owner']", exists = "false" }
+    "if" = {
+      "allOf" = [
+        { "field" = "type", "equals" = "Microsoft.Resources/subscriptions/resourceGroups" },
+        { "field" = "tags['Owner']", "exists" = "false" }
       ]
     }
-    then = { effect = "Deny" }
+    "then" = { "effect" = "Deny" }
   })
 }
 
@@ -72,13 +72,13 @@ resource "azurerm_policy_definition" "deny_res_missing_costcenter" {
   display_name = "Deny resources without CostCenter tag"
 
   policy_rule = jsonencode({
-    if = {
-      allOf = [
-        { field = "type", notEquals = "Microsoft.Resources/subscriptions/resourceGroups" },
-        { field = "tags['CostCenter']", exists = "false" }
+    "if" = {
+      "allOf" = [
+        { "field" = "type", "notEquals" = "Microsoft.Resources/subscriptions/resourceGroups" },
+        { "field" = "tags['CostCenter']", "exists" = "false" }
       ]
     }
-    then = { effect = "Deny" }
+    "then" = { "effect" = "Deny" }
   })
 }
 
@@ -89,13 +89,13 @@ resource "azurerm_policy_definition" "deny_res_missing_owner" {
   display_name = "Deny resources without Owner tag"
 
   policy_rule = jsonencode({
-    if = {
-      allOf = [
-        { field = "type", notEquals = "Microsoft.Resources/subscriptions/resourceGroups" },
-        { field = "tags['Owner']", exists = "false" }
+    "if" = {
+      "allOf" = [
+        { "field" = "type", "notEquals" = "Microsoft.Resources/subscriptions/resourceGroups" },
+        { "field" = "tags['Owner']", "exists" = "false" }
       ]
     }
-    then = { effect = "Deny" }
+    "then" = { "effect" = "Deny" }
   })
 }
 
@@ -107,18 +107,18 @@ resource "azurerm_policy_definition" "deny_public_ip" {
   display_name = "Deny Public IP and NIC public IP association"
 
   policy_rule = jsonencode({
-    if = {
-      anyOf = [
-        { field = "type", equals = "Microsoft.Network/publicIPAddresses" },
+    "if" = {
+      "anyOf" = [
+        { "field" = "type", "equals" = "Microsoft.Network/publicIPAddresses" },
         {
-          allOf = [
-            { field = "type", equals = "Microsoft.Network/networkInterfaces" },
-            { field = "Microsoft.Network/networkInterfaces/ipConfigurations[*].publicIPAddress.id", exists = "true" }
+          "allOf" = [
+            { "field" = "type", "equals" = "Microsoft.Network/networkInterfaces" },
+            { "field" = "Microsoft.Network/networkInterfaces/ipConfigurations[*].publicIPAddress.id", "exists" = "true" }
           ]
         }
       ]
     }
-    then = { effect = "Deny" }
+    "then" = { "effect" = "Deny" }
   })
 }
 
