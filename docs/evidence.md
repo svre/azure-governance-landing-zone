@@ -78,6 +78,6 @@
 ---
 
 ## Day5 - CI/CD (TODO - not done today)
-- [ ] Screenshot: GitHub Actions PR check running terraform fmt/validate/plan (TODO)
-- [ ] Screenshot: Failed pipeline when policy/security rule is violated (Checkov/tfsec) (TODO)
-
+[x] Screenshot: GitHub Actions CI ok (terraform + checkov): docs/architecture/day05-actions-ci-terraform-checkov-ok.png
+[x] Screenshot: PR blocked by CI (intentional fail): docs/architecture/day05-actions-ci-pr-blocked-failed.png
+[x] Screenshot: Checkov failure details: docs/architecture/day05-actions-ci-terraform-checkov-failed.png
