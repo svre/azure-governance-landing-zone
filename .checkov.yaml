@@ -5,8 +5,8 @@ skip-check:
   - CKV2_AZURE_31   # Bastion/FW mgmt subnets: NSG not required for lab
   - CKV_AZURE_216   # TI mode Deny (lab uses Basic+Alert for cost)
   - CKV_AZURE_220   # IDPS deny (lab uses Basic+Alert for cost)
- ## - CKV_TF_1        # local module path (not git commit pin) in portfolio dev
- ## - CKV_TF_2        # local module path (not git tag) in portfolio dev
+  - CKV_TF_1        # local module path (not git commit pin) in portfolio dev
+  - CKV_TF_2        # local module path (not git tag) in portfolio dev
 
 skip-path:
   - envs/dev/.terraform
