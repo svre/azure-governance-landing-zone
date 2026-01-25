@@ -81,3 +81,10 @@
 [x] Screenshot: GitHub Actions CI ok (terraform + checkov): docs/architecture/day05-actions-ci-terraform-checkov-ok.png
 [x] Screenshot: PR blocked by CI (intentional fail): docs/architecture/day05-actions-ci-pr-blocked-failed.png
 [x] Screenshot: Checkov failure details: docs/architecture/day05-actions-ci-terraform-checkov-failed.png
+
+## Day6 - Portfolio Packaging (Architecture + Narrative)
+
+- [x] Final architecture diagram (draw.io + PNG)
+  - Source: docs/architecture/day06-dev-drawio-architecture-landingzone-source.drawio
+  - PNG:    docs/architecture/day06-dev-drawio-architecture-landingzone-diagram-final.png
+- [ ] (Optional) Short GIF: CLI shows policy deny ("RequestDisallowedByPolicy")
