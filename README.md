@@ -40,6 +40,8 @@ This repository demonstrates a **compliance-first Azure Landing Zone** implement
 - Documentation files created for README, evidence index, and decision log
 - GitHub repository initialized as the central source of truth for the landing zone project
 
+---
+
 ### Day2 — Hub–Spoke foundation (Peering + IaC baseline)
 **Evidence**
 - Hub peering connected: `docs/architecture/day02-portal-hub-peering-connected.png`
