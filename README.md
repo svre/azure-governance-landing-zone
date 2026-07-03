@@ -43,6 +43,14 @@ This repository demonstrates a **compliance-first Azure Landing Zone** implement
 ---
 
 ### Day2 — Hub–Spoke foundation (Peering + IaC baseline)
+
+**Goal**
+
+- Deploy the initial hub-spoke network foundation.
+- Establish VNet peering between the hub and spoke networks.
+- Validate the Terraform deployment and confirm no unexpected infrastructure drift.
+- Create the baseline network structure for future application and data workloads.
+
 **Evidence**
 - Hub peering connected: `docs/architecture/day02-portal-hub-peering-connected.png`
 - RG overview: `docs/architecture/day02-portal-rg-core-overview-ok.png`
