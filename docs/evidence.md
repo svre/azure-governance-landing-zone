@@ -1,90 +1,241 @@
-﻿# Evidence Index
+# Evidence Index
 
-## Naming (recommended)
-- Format: `dayXX-<source>-<scope>-<what>-<result>.png`
-- Directory: `docs/architecture/`
-- Notes: Keep filenames stable once referenced here.
+This document provides the evidence index for the Azure Governance Landing Zone portfolio project. The screenshots and artifacts below show that the landing zone was designed, deployed, validated, and documented using Azure, Terraform, GitHub Actions, Azure Policy, and Checkov.
+
+## Evidence Location
+
+All screenshots and architecture files are stored in:
+
+`docs/architecture/`
+
+## Naming Standard
+
+Recommended naming format:
+
+`dayXX-area-tool-service-result.png`
+
+Examples:
+
+- `day02-tf-dev-apply-ok.png`
+- `day03-dev-logs-azfw-rg-core-query-ok.png`
+- `day05-actions-ci-terraform-checkov-ok.png`
+
+Filenames should remain stable once they are referenced in this evidence index or in the README.
 
 ---
 
 ## Architecture
-- [ ] Hub-Spoke diagram (draw.io) saved in `docs/architecture/` (TODO)
+
+- [x] Final landing zone architecture diagram
+  - `docs/architecture/day06-dev-drawio-landingzone-architecture-diagram-final.png`
+
+- [x] Draw.io source file for the final architecture diagram
+  - `docs/architecture/day06-dev-drawio-landingzone-architecture-source.drawio`
 
 ---
 
-## Day1 - Project Bootstrap 鉁?
-- [x] Repo structure created (docs/infra/.github)
-- [x] Terraform toolchain verified (init/fmt/validate)
-- [x] Initial README skeleton created (background/architecture/governance/devsecops/evidence)
-- [x] Decision log initialized (key architectural choices)
+## Day 1 - Project Bootstrap Complete
+
+Day 1 established the basic project structure and documentation approach.
+
+- [x] Repository structure created
+  - `docs/`
+  - `infra/`
+  - `.github/`
+
+- [x] Terraform toolchain verified
+  - `terraform init`
+  - `terraform fmt`
+  - `terraform validate`
+
+- [x] Initial README structure created
+  - Background
+  - Architecture
+  - Governance
+  - DevSecOps
+  - Evidence
+
+- [x] Decision log initialized
+  - Key architectural choices documented
 
 ---
 
-## Day2 - Hub-Spoke Network Foundation 鉁?
-- [x] Hub subnets created (Firewall/Bastion/Gateway/Shared)
-  - `docs/architecture/d2-hub-subnets.png`
-- [x] Hub peerings connected (Hub <-> Prod/NonProd)
-  - `docs/architecture/day2-peerings.png`
-- [x] Spoke peerings connected
-  - Prod: `docs/architecture/d2-spoke-prod-peerings.png`
-  - NonProd: `docs/architecture/d2-spoke-nonprod-peerings.png`
+## Day 2 - Hub-Spoke Network Foundation Complete
+
+Day 2 deployed and validated the core hub-spoke network foundation.
+
+### Resource Group and Resource Inventory
+
+- [x] Azure resource group overview captured
+  - `docs/architecture/day02-portal-rg-core-overview-ok.png`
+
+### Terraform Deployment Evidence
+
+- [x] Terraform apply completed successfully
+  - `docs/architecture/day02-tf-dev-apply-ok.png`
+
+- [x] Terraform plan showed no unexpected changes after deployment
+  - `docs/architecture/day02-tf-dev-plan-nochanges.png`
+
+### Hub-Spoke Peering Evidence
+
+- [x] Hub-spoke peering connected
+  - `docs/architecture/day02-portal-hub-peering-connected.png`
 
 ---
 
-## Day3 - Centralized Egress via Azure Firewall + UDR 鉁?
+## Day 3 - Centralized Egress Through Azure Firewall and UDR Complete
 
-### Core proof: default route enforced
-- [x] Route table (NonProd): `0.0.0.0/0 -> Virtual appliance -> 10.0.0.4`
+Day 3 implemented centralized outbound routing through Azure Firewall using user-defined routes.
+
+### Core Route Table Proof
+
+- [x] NonProd spoke default route points to Azure Firewall
+  - Route: `0.0.0.0/0 -> Virtual appliance -> Azure Firewall private IP`
   - `docs/architecture/day03-dev-portal-udr-spoke-nonprod-default-to-fw-ok.png`
-- [x] Route table (Prod): `0.0.0.0/0 -> Virtual appliance -> 10.0.0.4`
+
+- [x] Prod spoke default route points to Azure Firewall
+  - Route: `0.0.0.0/0 -> Virtual appliance -> Azure Firewall private IP`
   - `docs/architecture/day03-dev-portal-udr-spoke-prod-default-to-fw-ok.png`
 
-### Subnet association proof (UDR bound to subnets)
-- [x] Prod subnet -> route table binding
-  - `docs/architecture/day03-dev-portal-udr-spoke-prod-assoc-snet-app-ok.png`
-  - `docs/architecture/day03-dev-portal-udr-spoke-prod-assoc-snet-data-ok.png`
-- [x] NonProd subnet -> route table binding
+### Subnet Association Proof
+
+- [x] NonProd app subnet associated with route table
   - `docs/architecture/day03-dev-portal-udr-spoke-nonprod-assoc-snet-app-ok.png`
+
+- [x] NonProd data subnet associated with route table
   - `docs/architecture/day03-dev-portal-udr-spoke-nonprod-assoc-snet-data-ok.png`
 
-### Resource inventory proof (what was deployed)
-- [x] RG resource list (Firewall/Policy/LA/PIPs/RT/VNets)
+- [x] Prod app subnet associated with route table
+  - `docs/architecture/day03-dev-portal-udr-spoke-prod-assoc-snet-app-ok.png`
+
+- [x] Prod data subnet associated with route table
+  - `docs/architecture/day03-dev-portal-udr-spoke-prod-assoc-snet-data-ok.png`
+
+### Resource Inventory Proof
+
+- [x] Resource group list showing firewall, policies, Log Analytics, public IPs, route tables, and VNets
   - `docs/architecture/day03-dev-portal-rg-rg-core-resource-list-ok.png`
 
-### Strongest proof: SNAT egress IP equals firewall public IP
-- [x] VM Run Command output shows egress IP == firewall public IP (SNAT via firewall)
+### Firewall Output Evidence
+
+- [x] Terraform output captured Azure Firewall IP information
+  - `docs/architecture/day03-dev-tf-firewall-rg-core-output-ips-ok.png`
+
+### Egress Validation Proof
+
+- [x] VM Run Command output showed outbound traffic using the firewall public IP
   - `docs/architecture/day03-dev-cli-vm-spoke-nonprod-runcommand-egress-ip-ok.png`
 
-### Audit proof: Firewall logs captured in Log Analytics
-- [x] Log Analytics query results show AZFW logs (Network/DNS/Application)
+### Monitoring and Logging Proof
+
+- [x] Azure Firewall logs captured in Log Analytics
   - `docs/architecture/day03-dev-logs-azfw-rg-core-query-ok.png`
 
 ---
 
-## Day4 - Policy-as-Code (Deny Proof) 鉁?
+## Day 4 - Azure Policy-as-Code and Deny Proof Complete
 
-### Assignment proof (Portal)
-- [x] Policy assignments visible (Baseline initiative at subscription + Deny Public IP scoped to RG)
-  - `docs/architecture/day04-dev-portal-policy-subscription-assignments-ok.png`
+Day 4 implemented Azure Policy guardrails and validated that the deny policies were enforced.
 
-### Deny proof (CLI)
-- [x] Deny non-allowed region (eastus)
-  - `docs/architecture/day04-dev-cli-policy-subscription-location-eastus-deny.png`
-- [x] Deny missing required tags (CostCenter/Owner) on resource group creation
-  - `docs/architecture/day04-dev-cli-policy-subscription-tags-missing-deny.png`
-- [x] Deny Public IP creation at RG scope (scoped assignment)
-  - `docs/architecture/day04-dev-cli-policy-rg-core-publicip-deny.png`
+### Policy Assignment Proof
+
+- [x] Azure Policy assignments visible in the Azure portal
+  - `docs/architecture/day04-portal-subscription-policy-assign-ok.png.png`
+
+### Deny Proof
+
+- [x] Denied resource deployment in a non-allowed region
+  - `docs/architecture/day04-cli-deny-location-eastus.png.png`
+
+- [x] Denied resource group creation when required tags were missing
+  - `docs/architecture/day04-cli-deny-tags-missing.png.png`
+
+- [x] Denied Public IP creation at the resource group scope
+  - `docs/architecture/day04-cli-deny-publicip-rg-core.png.png`
 
 ---
 
-## Day5 - CI/CD (TODO - not done today)
-[x] Screenshot: GitHub Actions CI ok (terraform + checkov): docs/architecture/day05-actions-ci-terraform-checkov-ok.png
-[x] Screenshot: PR blocked by CI (intentional fail): docs/architecture/day05-actions-ci-pr-blocked-failed.png
-[x] Screenshot: Checkov failure details: docs/architecture/day05-actions-ci-terraform-checkov-failed.png
+## Day 5 - CI/CD PR Gate and Checkov Validation Complete
 
-## Day6 - Portfolio Packaging (Architecture + Narrative)
+Day 5 implemented GitHub Actions validation and Checkov scanning as the DevSecOps quality gate.
 
-- [x] Final architecture diagram (draw.io + PNG)
-  - Source: docs/architecture/day06-dev-drawio-architecture-landingzone-source.drawio
-  - PNG:    docs/architecture/day06-dev-drawio-architecture-landingzone-diagram-final.png
-- [ ] (Optional) Short GIF: CLI shows policy deny ("RequestDisallowedByPolicy")
+### Successful CI Evidence
+
+- [x] GitHub Actions CI completed successfully with Terraform and Checkov checks
+  - `docs/architecture/day05-actions-ci-terraform-checkov-ok.png`
+
+### Intentional Failure Evidence
+
+- [x] Pull request was blocked by CI after an intentional failure
+  - `docs/architecture/day05-actions-ci-pr-blocked-failed.png`
+
+- [x] Checkov failure details captured
+  - `docs/architecture/day05-actions-ci-terraform-checkov-failed.png`
+
+---
+
+## Day 6 - Portfolio Packaging Complete
+
+Day 6 packaged the architecture, evidence, and narrative into a portfolio-ready project.
+
+- [x] Final landing zone architecture diagram created
+  - `docs/architecture/day06-dev-drawio-landingzone-architecture-diagram-final.png`
+
+- [x] Draw.io source file saved
+  - `docs/architecture/day06-dev-drawio-landingzone-architecture-source.drawio`
+
+---
+
+## IT473 Unit 4 Capstone Reuse
+
+This Azure Governance Landing Zone project is reused and adapted as the Azure foundation layer for the IT473 food distributor MVP capstone project.
+
+### Unit 4 Scope
+
+The Unit 4 scope includes:
+
+- Azure landing zone foundation
+- Hub-spoke networking
+- Centralized egress through Azure Firewall and UDR
+- Azure Policy governance baseline
+- Terraform deployment evidence
+- GitHub Actions and Checkov validation
+- Monitoring baseline through Log Analytics
+
+### Later Unit Scope
+
+The remaining capstone work will be added in later units:
+
+- Unit 5: Azure SQL Database, schema, and sample data
+- Unit 6: Web front end and API layer
+- Unit 7: Key Vault, RBAC, diagnostic settings, and security hardening
+- Unit 8: End-to-end integration testing
+- Unit 9: Final professional portfolio package
+
+### Capstone Fit
+
+The Azure foundation supports the food distributor MVP by providing a secure and governed environment for future application, database, and monitoring components. The foundation does not complete the full MVP by itself. It prepares the cloud environment that later units will build on.
+
+---
+
+## Evidence Summary
+
+| Area | Evidence |
+|---|---|
+| Resource organization | Resource group and Azure resource inventory screenshots |
+| Network foundation | Hub-spoke peering and VNet evidence |
+| Centralized egress | Azure Firewall, UDR, subnet association, and egress validation screenshots |
+| Governance | Azure Policy assignment and deny proof screenshots |
+| DevSecOps | GitHub Actions, Terraform validation, and Checkov evidence |
+| Monitoring | Azure Firewall logs in Log Analytics |
+| Portfolio packaging | Final architecture diagram and source file |
+
+---
+
+## Notes
+
+- The project uses lab-scale Azure resources for portfolio and learning purposes.
+- Expensive resources, such as Azure Firewall, should be destroyed after screenshots and evidence are captured if they are no longer needed.
+- No real customer data, payment data, or production business data is used.
+- The project demonstrates cloud governance, security, networking, infrastructure as code, and DevSecOps practices in a controlled lab environment.
