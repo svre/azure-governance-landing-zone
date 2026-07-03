@@ -149,7 +149,7 @@ Day 4 implemented Azure Policy guardrails and validated that the deny policies w
   - `docs/architecture/day04-cli-deny-location-eastus.png`
 
 - [x] Denied resource group creation when required tags were missing
-  - `docs/architecture/day04-cli-deny-tags-missing.png.png`
+  - `docs/architecture/day04-cli-deny-tags-missing.png`
 
 - [x] Denied Public IP creation at the resource group scope
   - `docs/architecture/day04-cli-deny-publicip-rg-core.png`
