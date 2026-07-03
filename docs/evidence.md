@@ -141,18 +141,18 @@ Day 4 implemented Azure Policy guardrails and validated that the deny policies w
 ### Policy Assignment Proof
 
 - [x] Azure Policy assignments visible in the Azure portal
-  - `docs/architecture/day04-portal-subscription-policy-assign-ok.png.png`
+  - `docs/architecture/day04-portal-subscription-policy-assign-ok.png`
 
 ### Deny Proof
 
 - [x] Denied resource deployment in a non-allowed region
-  - `docs/architecture/day04-cli-deny-location-eastus.png.png`
+  - `docs/architecture/day04-cli-deny-location-eastus.png`
 
 - [x] Denied resource group creation when required tags were missing
   - `docs/architecture/day04-cli-deny-tags-missing.png.png`
 
 - [x] Denied Public IP creation at the resource group scope
-  - `docs/architecture/day04-cli-deny-publicip-rg-core.png.png`
+  - `docs/architecture/day04-cli-deny-publicip-rg-core.png`
 
 ---
 
