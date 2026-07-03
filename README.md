@@ -12,7 +12,7 @@ This repository demonstrates a **compliance-first Azure Landing Zone** implement
 ---
 
 ## Architecture (Final)
-![Landing Zone Architecture](docs/architecture/day06-dev-drawio-landingzone-architecture-diagram-final.png)
+![Azure Governance Landing Zone Architecture](docs/architecture/azure-governance-landing-zone-architecture-final.png.png)
 
 **Core ideas**
 - Hub hosts shared security and egress control (Azure Firewall).
