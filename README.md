@@ -25,6 +25,21 @@ This repository demonstrates a **compliance-first Azure Landing Zone** implement
 
 ## What I built (by day)
 
+### Day1 — Project bootstrap and IaC baseline
+
+**Goal**
+
+- Create the project repository structure.
+- Establish the Terraform infrastructure-as-code baseline.
+- Prepare documentation folders for architecture diagrams, evidence, and decisions.
+
+**Evidence**
+
+- Repository folders created: `.github/`, `docs/`, and `infra/terraform/`
+- Terraform files organized under `infra/terraform`
+- Documentation files created for README, evidence index, and decision log
+- GitHub repository initialized as the central source of truth for the landing zone project
+
 ### Day2 — Hub–Spoke foundation (Peering + IaC baseline)
 **Evidence**
 - Hub peering connected: `docs/architecture/day02-portal-hub-peering-connected.png`
