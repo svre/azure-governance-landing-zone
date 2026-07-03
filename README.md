@@ -91,12 +91,10 @@ This repository demonstrates a **compliance-first Azure Landing Zone** implement
 - Deny Public IP creation (scoped) with exception for Azure Firewall public IP
 
 **Evidence**
-- Policy assignments visible (Portal): `docs/architecture/day04-portal-subscription-policy-assignment-ok.png`
-- Deny non-allowed location (eastus): `docs/architecture/day04-cli-deny-location-eastus.png`
-- Deny missing required tags: `docs/architecture/day04-cli-deny-tags-missing.png`
-- Deny Public IP creation: `docs/architecture/day04-cli-deny-publicip-rg-core.png`
-
-> If your actual filenames include an extra `.png` (e.g. `...png.png`), keep them as-is or rename for consistency.
+- Policy assignments visible (Portal): `docs/architecture/day04-portal-subscription-policy-assign-ok.png.png`
+- Deny non-allowed location (eastus): `docs/architecture/day04-cli-deny-location-eastus.png.png`
+- Deny missing required tags: `docs/architecture/day04-cli-deny-tags-missing.png.png`
+- Deny Public IP creation: `docs/architecture/day04-cli-deny-publicip-rg-core.png.png`
 
 ---
 
